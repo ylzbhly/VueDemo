@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch</title>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="watch-example">
+        <p>
+            问一个是或否的问题：
+            <input v-model="question" />
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+
+    <script>
+        const watchExampleVM = Vue.createApp({
+            data() {
+                return {
+                    question: "",
+                    answer: "问题通常带问题符号。;-)"
+                }
+            },
+            watch: {
+                question(newQuestion, oldQuestion) {
+                    if(newQuestion.indexOf('?') > -1) {
+                        this.getAnswer()
+                    }
+                }
+            },
+            methods: {
+                getAnswer() {
+                    this.answer = "思考中"
+                    axios
+                        .get("https://yesno.wtf/api")
+                        .then(response => {
+                            this.answer = response.data.answer
+                        })
+                        .catch(error => {
+                            this.answer = "错误，找不到API。" + error
+                        })
+                }
+            }
+        }).mount('#watch-example')
+    </script>
+</body>
+</html>

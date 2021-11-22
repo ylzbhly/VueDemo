@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button v-bind:disabled="isButtonDisabled" @click="increment()" :title="now">按钮</button>
+        <p>{{message.split('').reverse().join('')}}</p>
+        <p>{{count}}</p>
+        <p v-bind:title="now">{{now}}</p>
+    </div>
+
+    <script>
+        const RootComponent = {
+            data() {
+                return {
+                    isButtonDisabled: undefined,
+                    message: "可以清心也",
+                    count: 4
+                }
+            },
+            methods: {
+                increment() {
+                    this.count++
+                },
+                click: _.debounce(function() {
+                    this.count++
+                }, 500),
+            },
+            computed: {
+                now() {
+                    return Date().toLocaleString()
+                },
+                }
+            }
+        
+        const app = Vue.createApp(RootComponent)
+        const vm = app.mount('#app')
+        console.log(vm.count)
+        vm.increment()
+        console.log(vm.count)
+    </script>
+
+</body>
+</html>

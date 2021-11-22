@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <ul>
+            <li v-for="item in items">{{ item.message }}</li>
+        </ul>
+        <ul>
+            <li v-for="name in names">{{ name }}</li>
+        </ul>
+        <ul>
+            <li v-for="(value, key, index) in people">{{index}}.{{key}}:{{value}}</li>
+        </ul>
+    </div>
+
+    <script>
+        const demoVM = Vue.createApp({
+            data() {
+                return {
+                    items: [{message: 'Foo'}, {message: 'Bar'}],
+                    names: ["Heng", "Si"],
+                    people: {
+                        姓名: '张三',
+                        身高: 180,
+                        体重: 140,
+                        特长: "吃",
+                    }
+                }
+            }
+        }).mount('#demo')
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        function Person(name) {
+            this.name = name;
+            this.today = function () {return new Date()}
+        }
+
+        const obj = {counter: 0}
+
+        Object.defineProperty(obj, "reset", {
+            get: function() {this.counter = 0}
+        })
+
+        Object.defineProperty(obj, "increment", {
+            get: function() {this.counter++}
+        })
+
+        Object.defineProperty(obj, "decrement", {
+            get: function() {this.counter--}
+        })
+
+        Object.defineProperty(obj, "add", {
+            set: function(value) {this.counter += value}
+        })
+
+        Object.defineProperty(obj, "subtract", {
+            set: function(i) {this.counter -= i}
+        })
+        // let myString = JSON.stringify(person)
+        // document.getElementById("demo").innerHTML = myString
+    </script>
+</body>
+</html>

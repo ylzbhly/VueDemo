@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="event-with-method">
+        <button @click="greet">Greet</button><br />
+        <button @click="say('Hi')">Say Hi</button><br />
+        <button @click="say('what')">Say what</button><br />
+        <button @click="warn('Form cannot be submitted yet.', $event)">Submit</button><br />
+        <button @click.meta="greet">Ctrl</button><br />
+        <label>alt + enter</label><input @keyup.alt.enter='greet'>
+    </div>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    name: "Si!"
+                }
+            },
+            methods: {
+                greet(event) {
+                    alert('Hello ' + this.name + '!')
+                    if(event) {
+                        alert(event.target.tagName)
+                    }
+                },
+                say(message) {
+                    alert(message)
+                },
+                warn(message, event) {
+                    if(event) {
+                        event.preventDefault()
+                    }
+                    alert(message)
+                }
+            }
+        }).mount("#event-with-method")
+    </script>
+</body>
+</html>

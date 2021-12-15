@@ -15,6 +15,8 @@
             <input v-model="question" />
         </p>
         <p>{{ answer }}</p>
+        <p>上一个问题：</p>
+        <p>{{ lastQuestion }}</p>
     </div>
 
     <script>
@@ -22,6 +24,7 @@
             data() {
                 return {
                     question: "",
+                    lastQuestion: "",
                     answer: "问题通常带问题符号。;-)"
                 }
             },
@@ -29,6 +32,7 @@
                 question(newQuestion, oldQuestion) {
                     if(newQuestion.indexOf('?') > -1) {
                         this.getAnswer()
+                        this.lastQuestion = oldQuestion
                     }
                 }
             },

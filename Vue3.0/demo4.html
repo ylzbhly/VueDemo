@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="app">
-        <button v-bind:disabled="isButtonDisabled" @click="increment()" :title="now">按钮</button>
+        <button v-bind:disabled="isButtonDisabled" @click="increment" :title="now">按钮</button>
         <p>{{message.split('').reverse().join('')}}</p>
         <p>{{count}}</p>
         <p v-bind:title="now">{{now}}</p>
@@ -35,7 +35,7 @@
             },
             computed: {
                 now() {
-                    return Date().toLocaleString()
+                    return new Date().toLocaleString()
                 },
                 }
             }

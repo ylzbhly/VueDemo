@@ -19,6 +19,12 @@
             :style="{ fontSize: postFontSize + 'em'}"
             :title="post.title">
         </blog-post>
+        <br />
+        <date-picker data-status='activated'></date-picker>
+        <br />
+        <custom-form></custom-form>
+        <br />
+        <my-component></my-component>
     </div>
     <script>
         const app = Vue.createApp({
@@ -56,6 +62,52 @@
                     </button>
                 </div>
             `
+        })
+        app.component('datePicker', {
+            template:`
+                <div calss="date-picker">
+                    <input type="datetime-local" />
+                </div>
+            `
+        })
+        app.component('custom-form', {
+            emits: {
+                click: null,
+
+                submit:({ email, password }) => {
+                    if(email && password) {
+                        return true
+                    } else {
+                        console.warn('Invalid submit event payload!')
+                        return false
+                    }
+                }
+            },
+            methods: {
+                submitForm(email, password) {
+                    this.$emit('submit', {email, password})
+                }
+            },
+            template: `
+                <form>
+                    <input type="text" />
+                    <input type="password" />
+                    <input type="submit" @click="submit-form" />
+                </form>
+            `
+        })
+        app.component('my-component', {
+            props: {
+                title: String
+            },
+            emits: ['update:title'],
+            template: `
+                <p>{{ title }}</p>
+                <input
+                    type="text"
+                    :value="title"
+                    @input="$emit('update:title', $event.target.value)" />
+            ` 
         })
         app.mount("#component")
     </script>

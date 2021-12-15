@@ -12,10 +12,26 @@
         <button-counter></button-counter>
         <button-counter></button-counter>
         <button-counter></button-counter>
+        <br />
+        <blog-post @enlarge-text="postFontSize += $event"
+            v-for="post in posts"
+            :key="post.id"
+            :style="{ fontSize: postFontSize + 'em'}"
+            :title="post.title">
+        </blog-post>
     </div>
     <script>
         const app = Vue.createApp({
-
+            data() {
+                return {
+                    posts: [
+                        {id: 1, title: "My journey with Vue"},
+                        {id: 2, title: "Blogging with Vue"},
+                        {id: 3, title: "Why Vue is so fun"}
+                    ],
+                    postFontSize: 1
+                }
+            }
         })
 
         app.component('button-counter', {
@@ -28,6 +44,18 @@
                 `<button @click="count++">
                     You clicked me {{ count }} times.
                 </button>`
+        })
+        app.component('blog-post', {
+            props: ['title'],
+            imits: ['enlargeText'],
+            template: `
+                <div class="blog-post">
+                    <h4>{{ title }}</h4>
+                    <button @click="$emit('enlargeText', 0.1)">
+                        Enlarge text
+                    </button>
+                </div>
+            `
         })
         app.mount("#component")
     </script>
